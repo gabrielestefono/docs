@@ -1,29 +1,32 @@
 import ContactMeMiddleLeftCard from "./ContactMeMiddleLeftCard";
-import email from "./email.png";
-import phone from "./phone.png";
-import address from "./location.png";
 import estilo from "./ContactMeMiddleLeft.module.scss";
+import { useContext } from "react";
+import { ContatoContext } from "@/portfolio/Contexts/ContatoContext";
 
 export default function ContactMeMiddleLeft() {
+    const { valor } = useContext(ContatoContext);
     return (
         <div className={estilo.contact}>
             <ContactMeMiddleLeftCard
-                img={phone}
-                title="Telefone"
-                text="(45) 9-9153-2214"
+                img={valor.whatsapp_icon}
+                title="Whatsapp"
+                text={valor.whatsapp}
                 altText="Ícone de telefone"
+                link={valor.whatsapp_link}
             />
             <ContactMeMiddleLeftCard
-                img={email}
+                img={valor.email_icon}
                 title="Email"
-                text="gabrielestefono@hotmail.com"
+                text={valor.email}
                 altText="Ícone de email"
+                link={valor.email_link}
             />
             <ContactMeMiddleLeftCard
-                img={address}
-                title="Endereço"
-                text="Mal. Cdo. Rondon"
+                img={valor.linkedin_icon}
+                title="Linkedin"
+                text={valor.linkedin}
                 altText="Ícone de endereço"
+                link={valor.linkedin_link}
             />
         </div>
     );

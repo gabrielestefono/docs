@@ -1,15 +1,15 @@
+import { useContext } from "react";
 import estilo from "./ContactMeTop.module.scss";
+import { ContatoContext } from "@/portfolio/Contexts/ContatoContext";
 
 export default function ContactMeTop() {
+    const { valor } = useContext(ContatoContext);
     return (
         <div className={estilo.title}>
             <h3>
                 Vamos discutir o seu <span>Projeto.</span>
             </h3>
-            <p>
-                Vamos criar algo novo, diferente e mais significativo ou tornar
-                as coisas mais visuais ou conceituais.
-            </p>
+            <p>{valor.mensagem_inicial}</p>
         </div>
     );
 }
