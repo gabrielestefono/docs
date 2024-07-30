@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -32,18 +33,27 @@ class MensagemResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')
+                    ->sortable(),
+                TextColumn::make('nome')
+                    ->searchable(),
+                TextColumn::make('whatsapp')
+                    ->copyable(),
+                TextColumn::make('email')
+                    ->copyable(),
+                TextColumn::make('orcamento'),
+                TextColumn::make('mensagem'),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
@@ -58,8 +68,11 @@ class MensagemResource extends Resource
     {
         return [
             'index' => Pages\ListMensagems::route('/'),
-            'create' => Pages\CreateMensagem::route('/create'),
-            'edit' => Pages\EditMensagem::route('/{record}/edit'),
         ];
+    }
+
+    public static function canCreate(): bool
+    {
+        return false;
     }
 }
