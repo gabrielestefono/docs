@@ -7,6 +7,8 @@ use App\Filament\Resources\Portfolio\MensagemResource\RelationManagers;
 use App\Models\Portfolio\Mensagem;
 use App\Models\Portfolio\Mensagens;
 use Filament\Forms;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -25,8 +27,8 @@ class MensagemResource extends Resource
     {
         return $form
             ->schema([
-                //
-            ]);
+                Textarea::make('mensagem')->disabled(),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -47,14 +49,8 @@ class MensagemResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                // Tables\Actions\EditAction::make(),
-            ])
-            ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
-            ]);
+            ->actions([])
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
@@ -68,6 +64,7 @@ class MensagemResource extends Resource
     {
         return [
             'index' => Pages\ListMensagems::route('/'),
+            'edit' => Pages\EditMensagem::route('/{record}'),
         ];
     }
 

@@ -13,7 +13,15 @@ class EditMensagem extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            // Actions\DeleteAction::make(),
+        ];
+    }
+
+    public function getFormActions(): array
+    {
+        return [
+            // $this->getSaveFormAction(),
+            $this->getCancelFormAction()->label('Voltar'),
         ];
     }
 }
