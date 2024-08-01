@@ -4,13 +4,16 @@ stages:
 commit_to_github:
   stage: commit_to_github
   script:
-    # Remove o diretório se ele existir
+    # Verifique se o diretório existe e, se sim, remova-o
     - |
       if [ -d "docs" ]; then
+        echo "Removing existing 'docs' directory..."
         rm -rf docs
+      else
+        echo "'docs' directory does not exist."
       fi
 
-    # Clone o repositório do GitHub diretamente
+    # Clone o repositório do GitHub
     - git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
     - cd docs
 
