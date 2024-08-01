@@ -4,19 +4,18 @@ stages:
 commit_to_github:
   stage: commit_to_github
   script:
-    - git config --global user.name "${GITLAB_USER_NAME}"
-    - git config --global user.email "${GITLAB_USER_EMAIL}"
-    
-    # Verifique o status do repositório para garantir que há alterações
-    - git status
+    # Clone o repositório do GitHub diretamente
+    - git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
+    - cd docs
 
-    # Defina a URL do repositório remoto para apontar para o GitHub
-    - git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
+    # Configure o usuário Git
+    - git config user.name "${GITLAB_USER_NAME}"
+    - git config user.email "${GITLAB_USER_EMAIL}"
 
-    # Adicione arquivos para commit
+    # Adicione suas alterações
     - git add .
-
-    # Verifique se há algo para commitar antes de tentar o commit
+    
+    # Verifique se há alterações antes de tentar fazer o commit
     - |
       if ! git diff-index --quiet HEAD; then
         git commit -m "Auto commit from GitLab CI"
