@@ -1,0 +1,14 @@
+stages:
+  - commit_to_github
+
+commit_to_github:
+  stage: commit_to_github
+  script:
+    - git config --global user.name "${GITLAB_USER_NAME}"
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
+    - git add .
+    - git commit -m "Auto commit from GitLab CI"
+    - git push origin main
+  only:
+    - branches
