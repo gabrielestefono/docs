@@ -8,11 +8,9 @@ sync_to_github:
     - git config user.name "${GITLAB_USER_NAME}"
     - git config user.email "${GITLAB_USER_EMAIL}"
 
-    # Verifique o estado do repositório GitLab
+    # Verifique o status e branches do repositório GitLab
     - echo "Status do repositório GitLab:"
     - git status
-
-    # Verifique as branches do repositório GitLab
     - echo "Branches do repositório GitLab:"
     - git branch
 
@@ -30,19 +28,21 @@ sync_to_github:
     - echo "Branches do repositório GitHub:"
     - git branch
 
-    # Compare o histórico de commits
+    # Mostre o histórico de commits do GitHub
     - echo "Histórico de commits do GitHub:"
     - git log --oneline
-    - cd ..
+
+    # Volte para o repositório GitLab e mostre o histórico de commits
+    - cd ../..
     - echo "Histórico de commits do GitLab:"
     - cd <path_to_local_repo>
     - git log --oneline
 
     # Compare o conteúdo dos repositórios
     - echo "Comparando conteúdos dos repositórios:"
-    - diff -r docs <path_to_local_repo>
+    - diff -r temp_repo/docs <path_to_local_repo>
 
-    # Volte ao repositório principal
+    # Remova o diretório temporário
     - cd ..
     - rm -rf temp_repo
 
