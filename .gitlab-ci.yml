@@ -9,6 +9,7 @@ sync_to_github:
     - git remote add github https://$GITHUB_TOKEN@github.com/gabrielestefono/docs.git
     - git fetch origin main
     - git checkout main || git checkout -b main
+    - git pull github main --rebase
     - git push github main
   only:
     - main
