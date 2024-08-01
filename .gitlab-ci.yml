@@ -1,25 +1,12 @@
 stages:
-  - commit_changes
+  - sync
 
-commit_changes:
-  stage: commit_changes
+sync_to_github:
+  stage: sync
   script:
-    - echo "Configuring Git..."
-    # Configura o usuário Git para commits
-    - git config user.name "${GITLAB_USER_NAME}"
-    - git config user.email "${GITLAB_USER_EMAIL}"
-    
-    - echo "Checking for changes..."
-    # Adiciona todas as alterações e faz o commit
-    - git add .
-    
-    # Verifica se há alterações para commitar
-    - |
-      if ! git diff-index --quiet HEAD --; then
-        echo "Committing changes..."
-        git commit -m "Automated commit message from CI/CD pipeline"
-        echo "Pushing changes..."
-        git push origin HEAD
-      else
-        echo "No changes to commit."
-      fi
+    - git config --global user.email "gabrielestefono@hotmail.com"
+    - git config --global user.name "gabrielestefono"
+    - git remote add github https://${GITHUB_TOKEN}@github.com/gabrielestefono/docs.git
+    - git push github main
+  only:
+    - main
