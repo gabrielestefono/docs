@@ -43,15 +43,20 @@ sync_to_github:
     - cd ..
     - rm -rf temp_repo
 
-    # Adicione e envie alterações para o GitHub se houver
-    - git add .
+    # Verifique se há alterações no repositório GitLab e faça o commit e push se houver
     - |
-      if ! git diff-index --quiet HEAD; then
-        git commit -m "Sync from GitLab CI"
-        git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
-        git push github main
+      if [ -d ".git" ]; then
+        git checkout main || git checkout -b main
+        git add .
+        if ! git diff-index --quiet HEAD; then
+          git commit -m "Sync from GitLab CI"
+          git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git || true
+          git push github main
+        else
+          echo "Nenhuma alteração para commitar."
+        fi
       else
-        echo "Nenhuma alteração para commitar."
+        echo "Não é um repositório Git válido."
       fi
   only:
     - main
