@@ -18,8 +18,6 @@ sync_to_github:
     - mkdir -p temp_repo
     - cd temp_repo
     - git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
-
-    # Navegue para o diretório clonado
     - cd docs
 
     # Verifique o status e branches do repositório GitHub
@@ -35,12 +33,11 @@ sync_to_github:
     # Volte para o repositório GitLab e mostre o histórico de commits
     - cd ../..
     - echo "Histórico de commits do GitLab:"
-    - cd <path_to_local_repo>
     - git log --oneline
 
     # Compare o conteúdo dos repositórios
     - echo "Comparando conteúdos dos repositórios:"
-    - diff -r temp_repo/docs <path_to_local_repo>
+    - diff -r temp_repo/docs . || true
 
     # Remova o diretório temporário
     - cd ..
@@ -51,6 +48,7 @@ sync_to_github:
     - |
       if ! git diff-index --quiet HEAD; then
         git commit -m "Sync from GitLab CI"
+        git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
         git push github main
       else
         echo "Nenhuma alteração para commitar."
