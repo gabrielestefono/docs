@@ -6,9 +6,23 @@ commit_to_github:
   script:
     - git config --global user.name "${GITLAB_USER_NAME}"
     - git config --global user.email "${GITLAB_USER_EMAIL}"
+    
+    # Verifique o status do repositório para garantir que há alterações
+    - git status
+
+    # Defina a URL do repositório remoto para apontar para o GitHub
     - git remote set-url origin https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
+
+    # Adicione arquivos para commit
     - git add .
-    - git commit -m "Auto commit from GitLab CI"
-    - git push origin main
+
+    # Verifique se há algo para commitar antes de tentar o commit
+    - |
+      if ! git diff-index --quiet HEAD; then
+        git commit -m "Auto commit from GitLab CI"
+        git push origin main
+      else
+        echo "No changes to commit."
+      fi
   only:
     - main
