@@ -4,6 +4,12 @@ stages:
 commit_to_github:
   stage: commit_to_github
   script:
+    # Remove o diretório se ele existir
+    - |
+      if [ -d "docs" ]; then
+        rm -rf docs
+      fi
+
     # Clone o repositório do GitHub diretamente
     - git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
     - cd docs
