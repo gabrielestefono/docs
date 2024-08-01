@@ -11,4 +11,4 @@ commit_to_github:
     - git commit -m "Auto commit from GitLab CI"
     - git push origin main
   only:
-    - branches
+    - main
