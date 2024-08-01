@@ -6,7 +6,7 @@ sync_to_github:
   script:
     - git config --global user.email "gabrielestefono@hotmail.com"
     - git config --global user.name "gabrielestefono"
-    - git remote add github https://${GITHUB_TOKEN}@github.com/gabrielestefono/docs.git
+    - git remote add github https://$GITHUB_TOKEN@github.com/gabrielestefono/docs.git
     - git push github main
   only:
     - main
