@@ -4,27 +4,26 @@ stages:
 commit_to_github:
   stage: commit_to_github
   script:
-    # Configure o usuário Git
+    # Configure o usuário Git (certifique-se de que as variáveis estão corretas)
     - git config user.name "${GITLAB_USER_NAME}"
     - git config user.email "${GITLAB_USER_EMAIL}"
 
-    # Adicione o repositório GitHub como remoto adicional
+    # Adicione o repositório GitHub como remoto, substituindo o existente se necessário
+    - git remote remove github || true
     - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
-    
-    # Atualize o repositório GitHub para garantir que você tenha a referência mais recente
-    - git fetch github
 
-    # Verifique se há alterações locais a serem commitadas
+    # Verifique o status e liste os remotos para garantir que tudo está correto
     - git status
+    - git remote -v
 
-    # Adicione suas alterações
+    # Adicione todas as alterações
     - git add .
 
     # Verifique se há alterações antes de tentar fazer o commit
     - |
       if ! git diff-index --quiet HEAD; then
         git commit -m "Auto commit from GitLab CI"
-        # Envie as alterações para o GitHub
+        # Empurre as alterações para o repositório GitHub
         git push github main
       else
         echo "No changes to commit."
