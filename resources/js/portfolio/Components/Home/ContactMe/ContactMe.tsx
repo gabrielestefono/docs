@@ -1,21 +1,19 @@
-import ContactMeTop from "./ContactMeTop";
-import ContactMeMiddle from "./ContactMeMiddle";
+import { useState } from "react";
 import ContactMeBottom from "./ContactMeBottom";
-import { useContext } from "react";
-import { ContatoContext } from "@/portfolio/Contexts/ContatoContext";
+import ContactMeMiddle from "./ContactMeMiddle";
+import ContactMeTop from "./ContactMeTop";
 
 interface ContactMeProps {
     espaco?: boolean;
 }
 
 export default function ContactMe({ espaco }: Readonly<ContactMeProps>) {
-    const { valor } = useContext(ContatoContext);
-    console.log(valor);
+    const [form, setForm] = useState<boolean>(false);
     return (
         <div>
             <ContactMeTop />
-            <ContactMeMiddle />
-            {espaco ? <ContactMeBottom espaco={true} /> : <ContactMeBottom />}
+            <ContactMeMiddle form={form} setForm={setForm}/>
+            {espaco ? <ContactMeBottom espaco={true} setForm={setForm}/> : <ContactMeBottom setForm={setForm} />}
         </div>
     );
 }

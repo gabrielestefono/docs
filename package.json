@@ -29,7 +29,8 @@
         "react-markdown": "^9.0.1",
         "react-router-dom": "^6.24.1",
         "rehype-raw": "^7.0.0",
-        "swiper": "^11.1.7"
+        "swiper": "^11.1.7",
+        "yup": "^1.4.0"
     },
     "engines": {
         "node": "20.x"

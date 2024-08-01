@@ -16,4 +16,13 @@ class PortfolioContatoController extends Controller
             'contato' => $meusContatos,
         ]);
     }
+
+    public function sendMessage(Request $request)
+    {
+        return response()->json(['mensagem'=> "Sucesso mermão!"]);
+        $request->validate([
+            "nome" => 'string|required',
+        ]);
+
+    }
 }
