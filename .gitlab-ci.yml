@@ -8,40 +8,52 @@ sync_to_github:
     - git config user.name "${GITLAB_USER_NAME}"
     - git config user.email "${GITLAB_USER_EMAIL}"
 
-    # Verifique o estado do repositório
-    - echo "Verificando o estado do repositório:"
+    # Verifique o estado do repositório GitLab
+    - echo "Status do repositório GitLab:"
     - git status
-    
-    # Verifique os remotos configurados
-    - echo "Verificando remotos:"
-    - git remote -v
 
-    # Adicione o repositório GitHub como remoto se não existir
-    - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git || true
+    # Verifique as branches do repositório GitLab
+    - echo "Branches do repositório GitLab:"
+    - git branch
 
-    # Faça um pull para garantir que o repositório está atualizado
-    - echo "Fazendo pull do repositório GitHub:"
-    - git pull github main || echo "Não foi possível fazer pull; talvez o repositório esteja desatualizado."
+    # Crie um diretório temporário e clone o repositório GitHub
+    - mkdir -p temp_repo
+    - cd temp_repo
+    - git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git
 
-    # Adicione todas as alterações feitas no repositório GitLab
+    # Navegue para o diretório clonado
+    - cd docs
+
+    # Verifique o status e branches do repositório GitHub
+    - echo "Status do repositório GitHub:"
+    - git status
+    - echo "Branches do repositório GitHub:"
+    - git branch
+
+    # Compare o histórico de commits
+    - echo "Histórico de commits do GitHub:"
+    - git log --oneline
+    - cd ..
+    - echo "Histórico de commits do GitLab:"
+    - cd <path_to_local_repo>
+    - git log --oneline
+
+    # Compare o conteúdo dos repositórios
+    - echo "Comparando conteúdos dos repositórios:"
+    - diff -r docs <path_to_local_repo>
+
+    # Volte ao repositório principal
+    - cd ..
+    - rm -rf temp_repo
+
+    # Adicione e envie alterações para o GitHub se houver
     - git add .
-    
-    # Verifique as diferenças para garantir que há alterações
-    - echo "Verificando diferenças antes do commit:"
-    - git diff --cached
-
-    # Commit e push para o repositório GitHub se houver alterações
     - |
       if ! git diff-index --quiet HEAD; then
         git commit -m "Sync from GitLab CI"
-        echo "Fazendo push para o GitHub:"
         git push github main
       else
         echo "Nenhuma alteração para commitar."
       fi
-
-    # Mostre o log dos commits para diagnóstico
-    - echo "Mostrando histórico de commits:"
-    - git log --oneline
   only:
     - main
