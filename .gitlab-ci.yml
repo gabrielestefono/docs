@@ -1,29 +1,25 @@
 stages:
-  - commit_to_github
+  - sync_to_github
 
-commit_to_github:
-  stage: commit_to_github
+sync_to_github:
+  stage: sync_to_github
   script:
-    # Configure o usuário Git
+    # Configure o usuário Git para commits
     - git config user.name "${GITLAB_USER_NAME}"
     - git config user.email "${GITLAB_USER_EMAIL}"
 
-    # Crie um diretório temporário para o repositório GitHub
-    - mkdir temp_repo
-    - cd temp_repo
+    # Adicione o repositório GitHub como remoto
+    - git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git || true
 
-    # Clone o repositório GitHub no diretório temporário
-    - git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/docs.git .
-    
-    # Adicione suas alterações
+    # Adicione todas as alterações feitas no repositório GitLab
     - git add .
     
     # Verifique se há alterações antes de tentar fazer o commit
     - |
       if ! git diff-index --quiet HEAD; then
-        git commit -m "Auto commit from GitLab CI"
-        # Empurre as alterações para o GitHub
-        git push origin main
+        git commit -m "Sync from GitLab CI"
+        # Empurre as alterações para o repositório GitHub
+        git push github main
       else
         echo "No changes to commit."
       fi
