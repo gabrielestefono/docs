@@ -1,4 +1,5 @@
 import { createContext, Dispatch, ReactNode, useMemo, useState } from "react";
+import { Projeto } from "../types/projetos";
 
 interface ProjetoContextProps {
     valor: Projeto[];

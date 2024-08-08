@@ -1,8 +1,9 @@
-export interface Projeto {
+export interface Sobre {
     alt: string;
     created_at: string;
     id: number;
     imagem: string;
-    nome: string;
+    texto: string;
+    titulo: string;
     updated_at: string;
 }

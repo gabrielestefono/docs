@@ -4,6 +4,7 @@ import ProjectsTitle from "../Components/Projetos/ProjectsInner/ProjectsTitle";
 import Separator from "../Components/Shared/Separator/Separator";
 import { ProjetoContextProvider } from "../Contexts/ProjetoContext";
 import Layout from "../Layout";
+import { Projeto } from "../types/projetos";
 
 interface ProjetosProps {
     projetos: Projeto[];
