@@ -6,8 +6,9 @@ import { Contato } from "../types/contato";
 import { Habilidade } from "../types/habilidade";
 import Header from "./Header";
 import { ContatoContext } from "../Contexts/ContatoContext";
+import { ProjetoContext } from "../Contexts/ProjetoContext";
 
-type TipoLayout = "contato" | "habilidade";
+type TipoLayout = "contato" | "habilidade" | "projeto";
 
 interface LayoutBase {
     type: TipoLayout;
@@ -25,7 +26,12 @@ interface PaginaHabilidades extends LayoutBase {
     data: Habilidade[];
 }
 
-type LayoutProps = PaginaContato | PaginaHabilidades;
+interface PaginaProjetos extends LayoutBase {
+    type: "projeto";
+    data: Projeto[];
+}
+
+type LayoutProps = PaginaContato | PaginaHabilidades | PaginaProjetos;
 
 export default function Layout({
     children,
@@ -38,6 +44,7 @@ export default function Layout({
 
     const contatoContext = useContext(ContatoContext);
     const habilidadeContext = useContext(HabilidadeContext);
+    const projetoContext = useContext(ProjetoContext);
 
     useEffect(() => {
         const head = document.head;
@@ -55,6 +62,9 @@ export default function Layout({
         switch (type) {
             case "contato":
                 contatoContext.setValor(data);
+                break;
+            case "projeto":
+                projetoContext.setValor(data);
                 break;
             default:
                 habilidadeContext.setValor(data);

@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc && vite build"
+        "build": "tsc && vite build",
+        "complete": "npm install && npm run dev"
     },
     "devDependencies": {
         "@headlessui/react": "^2.0.0",

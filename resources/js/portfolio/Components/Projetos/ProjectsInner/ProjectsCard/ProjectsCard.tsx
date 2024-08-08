@@ -1,3 +1,4 @@
+import { BACKEND_URL_STORAGE } from "@/portfolio/helper/Contants";
 import estilo from "./ProjectsCard.module.scss";
 
 interface ProjectsCardProps {
@@ -16,7 +17,7 @@ export default function ProjectsCard({
             <h2>{title}</h2>
             <img
                 className={estilo.imagem}
-                src={imagem}
+                src={`${BACKEND_URL_STORAGE}${imagem}`}
                 width={500}
                 height={500}
                 alt={alt}

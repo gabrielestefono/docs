@@ -44,6 +44,18 @@
         }
     },
     "scripts": {
+        "pre-install-cmd": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php -r \"file_exists('.env') && file_put_contents('.env', str_replace('APP_URL=http://localhost', 'APP_URL=http://localhost:8000', file_get_contents('.env')));\"",
+            "@php -r \"file_exists('.env') && file_put_contents('.env', str_replace('DB_CONNECTION=sqlite', 'DB_CONNECTION=pgsql', file_get_contents('.env')));\"",
+            "@php -r \"file_exists('.env') && file_put_contents('.env', str_replace('DB_HOST=127.0.0.1', 'DB_HOST=127.0.0.1', file_get_contents('.env')));\"",
+            "@php -r \"file_exists('.env') && file_put_contents('.env', str_replace('DB_USERNAME=root', 'DB_USERNAME=postgres', file_get_contents('.env')));\"",
+            "@php -r \"file_exists('.env') && file_put_contents('.env', str_replace('DB_PASSWORD=', 'DB_PASSWORD=postgres', file_get_contents('.env')));\""
+        ],
+        "post-install-cmd": [
+            "@php artisan key:generate",
+            "@php artisan storage:link"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi",

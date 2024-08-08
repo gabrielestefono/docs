@@ -1,14 +1,21 @@
+import { useContext } from "react";
 import ProjectsCard from "./ProjectsCard/ProjectsCard";
 import estilo from "./ProjectsContent.module.scss";
-import project1 from "./project1.webp";
+import { ProjetoContext } from "@/portfolio/Contexts/ProjetoContext";
 
 export default function ProjectsContent() {
-    const titulo = "Doctor Appointment web";
+    const { valor } = useContext(ProjetoContext);
     return (
         <div className={estilo.content}>
             <div>
-                <ProjectsCard imagem={project1} title={titulo} alt="Oeee" />
-                <ProjectsCard imagem={project1} title={titulo} alt="Oeee" />
+                {valor.map((projeto) => (
+                    <ProjectsCard
+                        key={projeto.id}
+                        imagem={projeto.imagem}
+                        title={projeto.nome}
+                        alt={projeto.alt}
+                    />
+                ))}
             </div>
         </div>
     );
