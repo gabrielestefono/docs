@@ -1,25 +1,21 @@
+import { useContext } from "react";
 import SkillsInnerCard from "./Cards/SkillsInnerCard";
-import diamons from "./diamon.webp";
 import estilo from "./SkillsInnerContent.module.scss";
+import { HabilidadeContext } from "@/portfolio/Contexts/HabilidadeContext";
 
 export default function SkillsInnerContent() {
-    let texto = "Mobile App";
-    let alt = "Icone tal";
+    const { valor } = useContext(HabilidadeContext);
     return (
         <div className={estilo.content}>
             <div>
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
-                <SkillsInnerCard image={diamons} text={texto} alt={alt} />
+                {valor.map((habilidade) => (
+                    <SkillsInnerCard
+                        key={habilidade.id}
+                        image={habilidade.imagem}
+                        text={habilidade.nome}
+                        alt={habilidade.alt}
+                    />
+                ))}
             </div>
         </div>
     );

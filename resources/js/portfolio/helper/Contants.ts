@@ -1,0 +1,1 @@
+export const BACKEND_URL_STORAGE = "http://localhost:8000/storage/";

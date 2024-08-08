@@ -1,3 +1,4 @@
+import { BACKEND_URL_STORAGE } from "@/portfolio/helper/Contants";
 import estilo from "./SkillsInnerCard.module.scss";
 
 interface SkillsInnerCardProps {
@@ -14,7 +15,7 @@ export default function SkillsInnerCard({
     return (
         <div className={estilo.card}>
             <div>
-                <img src={image} width={50} height={50} alt={alt} />
+                <img src={`${BACKEND_URL_STORAGE}${image}`} width={50} height={50} alt={alt} />
             </div>
             <h2>{text}</h2>
         </div>

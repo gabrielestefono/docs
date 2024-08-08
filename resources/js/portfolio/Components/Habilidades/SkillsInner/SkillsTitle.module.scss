@@ -41,7 +41,7 @@
 }
 
 .title{
-	width: 100vw;
+	width: 100%;
 	display: flex;
 	justify-content: center;
 
@@ -53,7 +53,7 @@
 		font-family: var(--dm-sans);
 		color: var(--cor-secundaria);
 		opacity: 0.8;
-		max-width: calc(100vw - 3rem);
+		max-width: calc(100% - 3rem);
 
 		@include tabletNormal(){
 			max-width: 38.375rem;

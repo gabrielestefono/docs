@@ -13,7 +13,8 @@ interface ActionProps {
         | "SET_WHATSAPP"
         | "SET_EMAIL"
         | "SET_ORCAMENTO"
-        | "SET_MENSAGEM";
+        | "SET_MENSAGEM"
+        | "SET_RESET";
     payload: string;
 }
 
@@ -49,6 +50,8 @@ export default function ContactMeMiddleRight({
                 return { ...state, orcamento: action.payload };
             case "SET_MENSAGEM":
                 return { ...state, mensagem: action.payload };
+            case "SET_RESET":
+                return {...state, mensagem: "", orcamento: "", email: "", whatsapp: "", nome: ""};
             default:
                 return state;
         }
@@ -57,7 +60,7 @@ export default function ContactMeMiddleRight({
     const mensagemSchema = object({
         nome: string().required("Nome é obrigatório!"),
         whatsapp: string().required("Whatsapp é obrigatório!"),
-        email: string().email().required("Email é obrigatório!"),
+        email: string().email("Email deve ser válido").required("Email é obrigatório!"),
         orcamento: string().nullable(),
         mensagem: string().required("Mensagem é obrigatória!"),
     });
@@ -103,6 +106,10 @@ export default function ContactMeMiddleRight({
         }
 
         alert('ENVIADO')
+        dispatch({
+            type: "SET_RESET",
+            payload: ""
+        })
     };
 
     useEffect(() => {
@@ -123,6 +130,7 @@ export default function ContactMeMiddleRight({
                         type="text"
                         placeholder="Nome"
                         id="nome"
+                        value={state.nome}
                         onChange={(e) =>
                             dispatch({
                                 type: "SET_NOME",
@@ -131,7 +139,7 @@ export default function ContactMeMiddleRight({
                         }
                         className={error.field === "nome" ? estilo.error : ""}
                     />
-                    {error.field === "nome" && <span>{error.message}</span>}
+                    {error.field === "nome" && <span className={estilo.message}>{error.message}</span>}
                 </div>
                 <div>
                     <label htmlFor="whatsapp" hidden>
@@ -140,6 +148,7 @@ export default function ContactMeMiddleRight({
                     <input
                         type="text"
                         placeholder="Whatsapp"
+                        value={state.whatsapp}
                         id="whatsapp"
                         onChange={(e) =>
                             dispatch({
@@ -151,7 +160,7 @@ export default function ContactMeMiddleRight({
                             error.field === "whatsapp" ? estilo.error : ""
                         }
                     />
-                    {error.field === "whatsapp" && <span>{error.message}</span>}
+                    {error.field === "whatsapp" && <span className={estilo.message}>{error.message}</span>}
                 </div>
             </div>
             <div>
@@ -163,6 +172,7 @@ export default function ContactMeMiddleRight({
                         type="email"
                         placeholder="Email"
                         id="email"
+                        value={state.email}
                         onChange={(e) =>
                             dispatch({
                                 type: "SET_EMAIL",
@@ -171,7 +181,7 @@ export default function ContactMeMiddleRight({
                         }
                         className={error.field === "email" ? estilo.error : ""}
                     />
-                    {error.field === "email" && <span>{error.message}</span>}
+                    {error.field === "email" && <span className={estilo.message}>{error.message}</span>}
                 </div>
                 <div>
                     <label htmlFor="orcamento" hidden>
@@ -179,8 +189,9 @@ export default function ContactMeMiddleRight({
                     </label>
                     <input
                         type="text"
-                        placeholder="Orçamento em R$"
+                        placeholder="Orçamento"
                         id="orcamento"
+                        value={state.orcamento ?? ""}
                         onChange={(e) =>
                             dispatch({
                                 type: "SET_ORCAMENTO",
@@ -192,7 +203,7 @@ export default function ContactMeMiddleRight({
                         }
                     />
                     {error.field === "orcamento" && (
-                        <span>{error.message}</span>
+                        <span className={estilo.message}>{error.message}</span>
                     )}
                 </div>
             </div>
@@ -205,6 +216,7 @@ export default function ContactMeMiddleRight({
                     id="mensagem"
                     cols={30}
                     rows={10}
+                    value={state.mensagem}
                     placeholder="Mensagem"
                     onChange={(e) =>
                         dispatch({
@@ -214,7 +226,7 @@ export default function ContactMeMiddleRight({
                     }
                     className={error.field === "mensagem" ? estilo.error : ""}
                 ></textarea>
-                {error.field === "mensagem" && <span>{error.message}</span>}
+                {error.field === "mensagem" && <span className={estilo.message}>{error.message}</span>}
             </div>
         </form>
     );

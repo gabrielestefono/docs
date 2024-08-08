@@ -1,30 +1,43 @@
 import { Head } from "@inertiajs/react";
-import favicon from "../images/favicon.ico";
 import { ReactNode, useContext, useEffect } from "react";
-import Header from "./Header";
+import { HabilidadeContext } from "../Contexts/HabilidadeContext";
+import favicon from "../images/favicon.ico";
 import { Contato } from "../types/contato";
+import { Habilidade } from "../types/habilidade";
+import Header from "./Header";
 import { ContatoContext } from "../Contexts/ContatoContext";
 
-type TipoLayout = "contato" | "outroTipo";
+type TipoLayout = "contato" | "habilidade";
 
-interface PaginaContato {
+interface LayoutBase {
     type: TipoLayout;
     children: ReactNode;
     title: string;
+}
+
+interface PaginaContato extends LayoutBase {
+    type: "contato";
     data: Contato;
 }
 
-type LayoutProps = PaginaContato;
+interface PaginaHabilidades extends LayoutBase {
+    type: "habilidade";
+    data: Habilidade[];
+}
+
+type LayoutProps = PaginaContato | PaginaHabilidades;
 
 export default function Layout({
     children,
     title,
     data,
+    type,
 }: Readonly<LayoutProps>) {
     const body = document.body;
     body.className = "portfolio";
 
-    const { setValor } = useContext(ContatoContext);
+    const contatoContext = useContext(ContatoContext);
+    const habilidadeContext = useContext(HabilidadeContext);
 
     useEffect(() => {
         const head = document.head;
@@ -39,7 +52,14 @@ export default function Layout({
         link.id = "dynamic-link";
         head.appendChild(link);
 
-        setValor(data);
+        switch (type) {
+            case "contato":
+                contatoContext.setValor(data);
+                break;
+            default:
+                habilidadeContext.setValor(data);
+                break;
+        }
     }, []);
 
     return (

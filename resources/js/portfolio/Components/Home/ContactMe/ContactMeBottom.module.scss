@@ -1,24 +1,87 @@
-.bottom{
-	width: 100%;
-	display: flex;
-	justify-content: center;
-	margin-top: 3.125rem;
+@mixin mobile {
+    @media (min-width: 360px) {
+        @content;
+    }
+}
 
-	button{
-		background-color: var(--cor-primaria);
-		border: none;
-		color: white;
-		height: 3.5rem;
-		width: 11rem;
-		border-radius: .25rem;
-		font-size: 1rem;
-		line-height: 1.5;
-		font-family: var(--poppins);
-		font-weight: 500;
+@mixin tabletNormal {
+    @media (min-width: 768px) {
+        @content;
+    }
+}
+
+@mixin tabletPaisagem {
+    @media (min-width: 1024px) {
+        @content;
+    }
+}
+
+@mixin LaptopPadrao {
+    @media (min-width: 1280px) {
+        @content;
+    }
+}
+
+@mixin LaptopHD {
+    @media (min-width: 1440px) {
+        @content;
+    }
+}
+
+@mixin DesktopPadrao {
+    @media (min-width: 1920px) {
+        @content;
+    }
+}
+
+@mixin DesktopHd {
+    @media (min-width: 2560px) {
+        @content;
+    }
+}
+
+.bottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 3.125rem;
+
+    @include tabletNormal() {
+        gap: 3.375rem;
+
+        > div:first-of-type {
+            width: 100%;
+            max-width: 21.875rem;
+        }
+
+        > div:last-of-type {
+            width: 100%;
+            max-width: 33rem;
+        }
+    }
+
+    @include tabletPaisagem() {
+        > div:first-of-type {
+            width: 100%;
+            max-width: 23.5rem;
+        }
+    }
+
+    button {
+        background-color: var(--cor-primaria);
+        border: none;
+        color: white;
+        height: 3.5rem;
+        width: 11rem;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        font-family: var(--poppins);
+        font-weight: 500;
         cursor: pointer;
-	}
+    }
 
-	.espaco {
-		margin-bottom: 3.75rem;
-	}
+    .espaco {
+        margin-bottom: 3.75rem;
+    }
 }

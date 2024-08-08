@@ -52,6 +52,7 @@
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
+		position: relative;
 
 		&:last-child{
 			flex-direction: row;
@@ -67,6 +68,8 @@
 			display: flex;
 			justify-content: center;
 			flex-grow: 1;
+			width: 100%;
+			position: relative;
 
 			@include tabletNormal(){
 				height: 3.5rem;
@@ -101,6 +104,13 @@
 					outline-color: var(--cor-primaria);
 				}
 			}
+
+			> span.message{
+				color: red;
+				position: absolute;
+				left: 1rem;
+				top: 3.75rem;
+			}
 		}
 
 		textArea{
@@ -129,6 +139,13 @@
 				line-height: 1.5;
 			}
 
+		}
+
+		> span.message{
+			color: red;
+			position: absolute;
+			left: 1rem;
+			top: 3.75rem;
 		}
 	}
 }

@@ -40,61 +40,80 @@
     }
 }
 
-.card{
-	width: 100%;
-	height: auto;
-	display: flex;
-	background-color: #FAFAFA;
-	border-radius: .5rem;
-	min-height: 6.5rem;
-	justify-content: flex-start;
-	align-items: center;
-	margin: 0 auto;
+.card {
+    width: 100%;
+    height: auto;
+    display: flex;
+    background-color: #fafafa;
+    border-radius: 0.5rem;
+    min-height: 6.5rem;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
 
-	@include tabletNormal(){
-		width: 21.875rem;
-	}
+    @include tabletNormal() {
+        width: 21.875rem;
+    }
 
-	& > div:first-child{
-		margin-left: 1.5rem;
+	@include tabletPaisagem() {
+        width: calc(23.5rem);
+    }
 
-		& > div{
-			&:first-child{
-				background-color: var(--cor-primaria);
-				width: 3.5rem;
-				height: 3.5rem;
-				border-radius: .75rem;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
+    & > div:first-child {
+        margin-left: 1.5rem;
 
-		}
-	}
+        & > div {
+            &:first-child {
+                background-color: var(--cor-primaria);
+                width: 3.5rem;
+                height: 3.5rem;
+                border-radius: 0.75rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
 
-	& > div:last-child {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		margin-left: 1.125rem;
-		min-height: 3.5rem;
-		max-height: 3.5rem;
+    & > div:last-child {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-left: 1.125rem;
+        min-height: 3.5rem;
+        max-height: 3.5rem;
 
-		h3{
-			margin-top: .25rem;
-			color: var(--cor-secundaria);
-			font-family: var(--poppins);
-			font-weight: 500;
-			font-size: 1rem;
-		}
+        h3 {
+            margin-top: 0.25rem;
+            color: var(--cor-secundaria);
+            font-family: var(--poppins);
+            font-weight: 500;
+            font-size: 1rem;
+        }
 
-		p{
-			font-family: var(--poppins);
-			font-size: 1rem;
-			font-weight: 500;
-			line-height: 1.125rem;
-			color: #11142D;
-			margin-bottom: .25rem;
-		}
-	}
+        p {
+            font-family: var(--poppins);
+            font-size: 1rem;
+            font-weight: 500;
+            line-height: 1.125rem;
+            color: #11142d;
+            margin-bottom: 0.25rem;
+
+            @include tabletNormal() {
+                max-width: 190px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+                &:hover {
+                    max-width: none;
+                    text-overflow: initial;
+                }
+            }
+
+            @include tabletPaisagem() {
+                max-width: none;
+                text-overflow: initial;
+            }
+        }
+    }
 }

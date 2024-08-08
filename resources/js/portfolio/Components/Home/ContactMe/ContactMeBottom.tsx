@@ -15,12 +15,15 @@ export default function ContactMeBottom({
     };
     return (
         <div className={estilo.bottom}>
-            <button
-                className={espaco ? estilo.espaco : ""}
-                onClick={handleSubmit}
-            >
-                Submit Message
-            </button>
+            <div></div>
+            <div>
+                <button
+                    className={espaco ? estilo.espaco : ""}
+                    onClick={handleSubmit}
+                >
+                    Submit Message
+                </button>
+            </div>
         </div>
     );
 }

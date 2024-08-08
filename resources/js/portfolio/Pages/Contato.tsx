@@ -12,7 +12,7 @@ interface ContatoProps {
 export default function Contato({ contato }: Readonly<ContatoProps>) {
     return (
         <ContatoContextProvider>
-            <Layout title="Portfólio" type="contato" data={contato}>
+            <Layout title="Portfólio" data={contato} type="contato">
                 <HeroSection />
                 <Separator titulo="Contate-me" />
                 <ContactMe espaco={true} />
